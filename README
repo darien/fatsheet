@@ -1,0 +1,25 @@
+*FATSHEET*
+
+A GPU-accelerated spreadsheet compiler.
+
+********************************************************************
+
+The project is structured as follows:
+
+/fatsheet
+	/data					[sample spreadsheets]
+	/gfuncs					[gpu-accelerated versions of spreadsheet functions]
+		kernels.py			[gpu kernels]
+	/scraps					[scraps]
+	/topology				[classes for generating spreadsheet parse tree]
+		sorting.py			[functions to sort cells for parallel execution]
+	/xmlparse				[classes for parsing xml]
+	/lexer					[lexical analyzer]
+		lex.py				[parsing/transformation classes]
+		refuncs.py			[regex functions]
+		regexes.py			[regexes]
+	kernel_dev.py			[kernel development area]
+	func_dev.py				[function development area]
+	scratch.py				[scrap of paper]
+	README					[this file]	
+	
