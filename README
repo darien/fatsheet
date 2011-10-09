@@ -2,6 +2,17 @@
 
 A GPU-accelerated spreadsheet compiler.
 
+Fatsheet extracts cell contents from xml spreadsheets, analyzes dependencies, 
+then compiles cell equations into GPU kernels.  Uses EPD 2.6.5 and PyCUDA.
+
+Future:
+-- add support for other spreadsheet formats
+-- add openCL support
+-- requirements.txt would be nice
+-- performance test using better sample spreadsheets
+-- xml content handler needs to handle repeated values nicely
+-- need better device queries 
+
 ********************************************************************
 
 The project is structured as follows:
@@ -18,8 +29,8 @@ The project is structured as follows:
 		lex.py				[parsing/transformation classes]
 		refuncs.py			[regex functions]
 		regexes.py			[regexes]
-	kernel_dev.py			[kernel development area]
+	kernel_dev.py				[kernel development area]
 	func_dev.py				[function development area]
-	scratch.py				[scrap of paper]
+	scratch.py				[scratch area]
 	README					[this file]	
 	
