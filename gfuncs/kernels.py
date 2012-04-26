@@ -1,6 +1,13 @@
+'''
+
+Kernel definitions.  Fatsheet relies heavily on predefined pycuda kernels, but some custom kernels can be found in kernel_dev.py.
+
+'''
+
 import numpy as np
 import pycuda.autoinit
 from pycuda.reduction import ReductionKernel
+from pycuda.compiler import SourceModule
 
 #----------------------------------------------------------
 # standard deviation
@@ -27,7 +34,7 @@ kCOVAR = ReductionKernel(\
 #----------------------------------------------------------
 # correlation
 
-# none needed
+# none needed, uses COVAR and STDEV
 
 #----------------------------------------------------------
 # test kernel

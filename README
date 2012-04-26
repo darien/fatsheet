@@ -1,36 +1,72 @@
-*FATSHEET*
+************
+* FATSHEET *
+************
 
-A GPU-accelerated spreadsheet compiler.
+A GPU-accelerated spreadsheet compiler.  This project is a proof-of-concept aimed towards assessing the feasibility of GPU-based spreadsheet compilation.
 
-Fatsheet extracts cell contents from xml spreadsheets, analyzes dependencies, 
-then compiles cell equations into GPU kernels.  Uses EPD 2.6.5 and PyCUDA.
+Fatsheet works by (i) extracting cell contents from XML spreadsheets, (ii) analyzing dependencies between cells, then (iii) translating spreadsheet formulas into CUDA kernels for parallel execution.
 
-Future:
--- add support for other spreadsheet formats
--- add openCL support
--- requirements.txt would be nice
--- performance test using better sample spreadsheets
--- xml content handler needs to handle repeated values nicely
--- need better device queries 
+The xmlparse module performs (i)
+The topology module performs (ii)
+The gfuncs module performs (iii)
 
-********************************************************************
+See the "project structure" section below for more details.
 
-The project is structured as follows:
+********
+* DEMO *
+********
 
-/fatsheet
-	/data					[sample spreadsheets]
-	/gfuncs					[gpu-accelerated versions of spreadsheet functions]
-		kernels.py			[gpu kernels]
-	/scraps					[scraps]
-	/topology				[classes for generating spreadsheet parse tree]
-		sorting.py			[functions to sort cells for parallel execution]
-	/xmlparse				[classes for parsing xml]
-	/lexer					[lexical analyzer]
-		lex.py				[parsing/transformation classes]
-		refuncs.py			[regex functions]
-		regexes.py			[regexes]
+A basic demo can be found in run.py.  This script compiles the correl_test.xml spreadsheet (found in the data directory) using GPU-accelerated python functions.  correl_test.xml includes two vectors of random numbers, each having 100,000 cells, and a simple formula that computes the correlation between the two vectors.
+
+When run.py is executed, the fatsheet compiler extracts the raw data and correlation formula from correl_test, then runs a corresponding GPU-accelerated correlation function with the extracted data.  The results are printed along with a comparison to regular CPU-based correlation.  Be sure to activate the virtualenv found in fsenv before running the demo.
+
+The output should look something like this:
+
+>>> execfile("run.py")
+done
+GPU time: 0.00594615936279
+GPU correlation: 0.0014329854738833
+CPU time: 0.00902795791626
+CPU correlation: 0.0014329850544730
+GPU / CPU error: 0.0000000004194103
+GPU Speedup: 1.5182838813151565
+>>> 
+
+See run.py for more information.
+
+**************************
+* NOTES AND KNOWN ISSUES *
+**************************
+
+Fatsheet was developed on a MacBook Pro running Snow Leopard with an NVIDIA GeForce 9600M GT graphics processor.
+
+CUDA 3.2.0 is required.
+
+The GPU kernels included in fatsheet expect a 512-core GPU (extended compatibility was not a priority for this project).
+
+*********************
+* PROJECT STRUCTURE *
+*********************
+
+/fatsheet						[root]
+	README						[this file]	
+	run.py						[fatsheet demo entry point]
+	/fsenv						[virtualenv used by this project]
+	requirements.txt			[requirements used by fsenv]
+	/xmlparse					[classes for parsing xml]
+	/lexer						[lexical analyzer]
+		lexclasses.py			[parsing/transformation classes]
+		refuncs.py				[regex substitution functions]
+		regexes.py				[regexes]
+	/topology					[classes for generating spreadsheet parse tree]
+		sorting.py				[functions to schedule cells for parallel execution]
+	/gfuncs						[gpu-accelerated versions of spreadsheet functions]
+		kernels.py				[gpu kernels]
+	/data						[sample spreadsheets]
+	/scraps						[scraps]
+		gpu_experiments.py		[early experiments with pyCUDA]
+		type_tests.py			[speed tests for converting between different formats]
 	kernel_dev.py				[kernel development area]
-	func_dev.py				[function development area]
-	scratch.py				[scratch area]
-	README					[this file]	
+	func_dev.py					[function development area]
+
 	

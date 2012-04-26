@@ -1,7 +1,14 @@
+'''
+
+These functions perform various regex replacements in order to fix broken spreadsheet code or convert that code into python.
+
+'''
+
+
 import lexer.regexes as rx
 import re
 
-# replaces omitted redundncies
+# replaces redundancies omitted by ODS
 def fixOmissions(ref, formula):
 	
 	# converts [Sheet1.A1:.A10] --> [Sheet1.A1:Sheet1.A10]
@@ -32,7 +39,9 @@ def fixOmissions(ref, formula):
 	
 	
 ## functions for converting various cell references to equivalent slice indices
-# convert cellref: [Sheet1.A1] --> objstr[0, 0, 0]	
+# "objstr" is a string like "self.sheetobj.data"  that gets exec'd later
+
+# convert cellref: [Sheet1.A1] --> objstr[0, 0, 0]
 def cellref2dataref(ref, objstr):
 	
 	# get ref elements
@@ -73,8 +82,8 @@ def cellrng2datarng(rng, objstr):
 	datarng = objstr+'[' \
 	+shmin+':'+shmax+',' \
 	+rowmin+':'+rowmax+',' \
-	+colmin+':'+colmax+']'
-		
+	+colmin+':'+colmax+'][0]'
+	
 	return datarng
 	
 # converts list of cell ranges: Sheet1.A1:Sheet1.A10; Sheet2.A1:Sheet2.A10 -->

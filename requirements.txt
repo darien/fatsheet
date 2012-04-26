@@ -1,0 +1,8 @@
+decorator==3.3.3
+numpy==1.6.1
+py==1.4.7
+pycuda==2011.2.2
+pytest==2.2.3
+pytools==2011.5
+wsgiref==0.1.2
+yolk==0.4.3

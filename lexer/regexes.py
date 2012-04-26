@@ -1,3 +1,10 @@
+'''
+
+Various regexes
+
+'''
+
+
 import re
 
 # doesn't support > Z; e.g. 'AA'

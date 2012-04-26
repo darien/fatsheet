@@ -1,8 +1,16 @@
+'''
+
+Python functions that wrap CUDA kernels via pycuda.  
+Variables named d* reside on the device (GPU memory) and those named h* are host (CPU) variables.
+
+'''
+
 import numpy as np
 import pycuda.gpuarray as gpuarray
 import gfuncs.kernels as kn; reload(kn)
 
 # takes n-dimensional array
+# uses pycuda sum function
 def gSUM(data1):
 	dA = gpuarray.to_gpu(data1.astype(np.float32))
 	hR = np.float64(gpuarray.sum(dA).get())
