@@ -1,10 +1,12 @@
 '''
 
-This file can be executed from a terminal window to run the demo.  A few things to note:
+This file can be executed from a python prompt to run the demo.  A few things to note:
 
--- Fatsheet runs faster than the regular spreadsheet compiler only when the dataset is huge, i.e. more than a ~100k cells per vector.  With this size dataset, the speedup conferred by GPU execution is only about 50% (on my machine).  With insanely huge datasets, the speedup can top 1000%.  Essentially, the advantage of processing a dataset on the GPU has to completely offset the cost of writing the dataset to the GPU across PCIe.  This bottleneck is compounded when a spreadsheet formula has multiple different functions, each requiring a different dataset to be sent to the GPU.  
+-- Fatsheet runs faster than the regular spreadsheet compiler only when the dataset is very large.  With the dataset included in the demo, significant acceleration may not be observed during some runs.  With enormous datasets, the speedup can top 1000%.  Essentially, the advantage of processing a dataset on the GPU has to completely offset the cost of writing the dataset to the GPU across PCIe.  This bottleneck is compounded when a spreadsheet formula has multiple different functions, each requiring a different dataset to be sent to the GPU.  
 
--- The output of Fatsheet may be inaccurate compared to CPU results depending on the GPU you use to run the demo.  Many GPUs only support 32-bit precision calculations, while most CPUs can support up to 64-bit precision.  On my machine, this error ends up around 0.0000000004194103 for the correlation example.
+-- The output of Fatsheet may be inaccurate compared to CPU results depending on the GPU used to run the demo.  Many GPUs only support 32-bit precision calculations, while most CPUs can support up to 64-bit precision.  On the GeForce 9600M GT used to develop this demo, the error ends up around 0.0000000004194103 for the correlation example.
+
+-- The speedtest should actually be run multiple times to establish an average acceleration; GPU and CPU processing times are highly variable.
 
 '''
 
