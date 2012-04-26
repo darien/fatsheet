@@ -44,7 +44,7 @@ CUDA 3.2.0 is required.
 
 The GPU kernels included in fatsheet expect a 512-core GPU (extended compatibility was not a priority for this project).
 
-This project is open source: www.github.com/darien/fatsheet
+This project is open source: github.com/darien/fatsheet
 
 *********************
 * PROJECT STRUCTURE *
